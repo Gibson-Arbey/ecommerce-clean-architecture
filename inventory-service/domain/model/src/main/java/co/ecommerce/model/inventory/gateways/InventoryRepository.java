@@ -8,9 +8,13 @@ public interface InventoryRepository {
 
     Inventory save(Inventory inventory);
 
-    List<Inventory> findAll();
+    List<Inventory> findAllByFilters(String sku, Integer minQuantity, Integer maxQuantity);
 
-    Inventory findById(Long id);
+    Inventory findBysku(String sku);
 
-    void deleteById(Long id);
+    Inventory findById(String id);
+
+    boolean existsBysku(String sku);
+
+    void deleteBySku(String sku);
 }

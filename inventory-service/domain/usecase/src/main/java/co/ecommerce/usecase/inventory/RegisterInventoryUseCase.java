@@ -13,5 +13,5 @@ public class RegisterInventoryUseCase {
     public Inventory execute(RegisterInventoryCommand command) {
         Inventory inventory = Inventory.create(command.sku(), command.quantity());
         return inventoryRepository.save(inventory);
-    }}
+    }
 }
