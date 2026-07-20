@@ -1,20 +1,20 @@
-package co.ecommerce.usecase.inventory.exception;
+package co.ecommerce.model.order.exception;
 
 import co.ecommerce.model.exception.DomainException;
 import co.ecommerce.model.exception.ErrorTypeEnum;
 
-public class InsufficientStockException extends DomainException {
-    public InsufficientStockException(String message) {
+public class OrderNotFoundException extends DomainException {
+    public OrderNotFoundException(String message) {
         super(message);
     }
 
     @Override
     public String getCode() {
-        return "INSUFFICIENT_STOCK";
+        return "ORDER_NOT_FOUND";
     }
 
     @Override
     public ErrorTypeEnum getErrorType() {
-        return ErrorTypeEnum.VALIDATION;
+        return ErrorTypeEnum.NOT_FOUND;
     }
 }
