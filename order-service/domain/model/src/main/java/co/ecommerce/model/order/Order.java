@@ -4,6 +4,7 @@ import co.ecommerce.model.exception.InvalidFieldException;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 public class Order {
@@ -23,8 +24,8 @@ public class Order {
         this.items = items;
     }
 
-    public static Order create(String orderNumber, List<OrderItem> items) {
-        return new Order(null, orderNumber, items);
+    public static Order create(List<OrderItem> items) {
+        return new Order(null, UUID.randomUUID().toString(), items);
     }
 
     public static Order restore(Long id, String orderNumber, List<OrderItem> items) {
