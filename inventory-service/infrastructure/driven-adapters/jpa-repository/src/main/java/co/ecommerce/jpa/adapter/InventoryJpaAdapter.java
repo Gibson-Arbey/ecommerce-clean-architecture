@@ -37,7 +37,7 @@ public class InventoryJpaAdapter implements InventoryRepository {
     }
 
     @Override
-    public Inventory findById(String id) {
+    public Inventory findById(Long id) {
         return InventoryJpaMapper.toDomain(inventoryJpaRepository.findById(id).orElse(null));
     }
 

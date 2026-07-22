@@ -12,7 +12,7 @@ public interface InventoryRepository {
 
     Inventory findBysku(String sku);
 
-    Inventory findById(String id);
+    Inventory findById(Long id);
 
     boolean existsBysku(String sku);
 

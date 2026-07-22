@@ -1,7 +1,14 @@
 pluginManagement {
     repositories {
-        //mavenLocal()
+        mavenCentral()
         gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
     }
 }
 
@@ -23,3 +30,5 @@ include ':jpa-repository'
 project(':jpa-repository').projectDir = file('./infrastructure/driven-adapters/jpa-repository')
 include ':api-rest'
 project(':api-rest').projectDir = file('./infrastructure/entry-points/api-rest')
+include ':rest-consumer'
+project(':rest-consumer').projectDir = file('./infrastructure/driven-adapters/rest-consumer')

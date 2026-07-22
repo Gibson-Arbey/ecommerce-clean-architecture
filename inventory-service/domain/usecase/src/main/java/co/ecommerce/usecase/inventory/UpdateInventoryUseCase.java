@@ -11,7 +11,7 @@ public class UpdateInventoryUseCase {
 
     private final InventoryRepository inventoryRepository;
 
-    public Inventory execute(String id, UpdateInventoryCommand command){
+    public Inventory execute(Long id, UpdateInventoryCommand command){
         Inventory  inventoryExisting = inventoryRepository.findById(id);
 
         if(inventoryExisting == null){

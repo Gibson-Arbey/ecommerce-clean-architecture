@@ -56,7 +56,7 @@ class JpaConfigTest {
     void entityManagerFactoryTest() {
 
         final LocalContainerEntityManagerFactoryBean result =
-                jpaConfigUnderTest.entityManagerFactory(dataSource, "dialect");
+                jpaConfigUnderTest.entityManagerFactory(dataSource, "dialect", "none");
 
         assertNotNull(result);
     }

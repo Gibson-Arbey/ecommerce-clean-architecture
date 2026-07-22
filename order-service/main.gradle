@@ -1,12 +1,5 @@
 apply plugin: 'info.solidsoft.pitest.aggregator'
 
-allprojects {
-    repositories {
-        //mavenLocal()
-        mavenCentral()
-    }
-}
-
 subprojects {
     apply plugin: 'java'
     apply plugin: 'jacoco'
@@ -67,6 +60,14 @@ subprojects {
             xml.setOutputLocation layout.buildDirectory.file("reports/jacoco.xml")
             csv.setRequired false
             html.setOutputLocation layout.buildDirectory.dir("reports/jacocoHtml")
+        }
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         }
     }
 

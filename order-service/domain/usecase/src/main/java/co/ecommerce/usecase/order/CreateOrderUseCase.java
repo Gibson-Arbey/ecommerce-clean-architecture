@@ -1,5 +1,6 @@
 package co.ecommerce.usecase.order;
 
+import co.ecommerce.model.inventory.gateways.InventoryRepository;
 import co.ecommerce.model.order.Order;
 import co.ecommerce.model.order.OrderItem;
 import co.ecommerce.model.order.gateways.OrderRepository;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 public class CreateOrderUseCase {
 
     private final OrderRepository orderRepository;
+    private final InventoryRepository inventoryRepository;
 
     public Order execute(CreateOrderCommand command){
         Order order = Order.create(command.items()

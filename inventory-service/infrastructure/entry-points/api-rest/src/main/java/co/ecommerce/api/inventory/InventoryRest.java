@@ -57,11 +57,11 @@ public class InventoryRest {
     }
 
     @PutMapping("/id/{id}")
-    public ResponseEntity<InventoryResponse> updateInventory(@PathVariable("id") String id, @RequestBody UpdateInventoryRequest request) {
+    public ResponseEntity<InventoryResponse> updateInventory(@PathVariable("id") Long id, @RequestBody UpdateInventoryRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(InventoryResponseMapper.toResponse(updateInventoryUseCase.execute(id, CommandInventoryRequestMapper.toUpdateInventoryCommand(request))));
     }
 
-    @PatchMapping("/sku/{sku}")
+    @PatchMapping("/reduce/{sku}")
     public ResponseEntity<Void> reduceStockInventory(@PathVariable("sku") String sku, @RequestBody ReduceStockInventoryRequest request) {
         reduceStockInventoryUseCase.execute(sku, CommandInventoryRequestMapper.toReduceInventoryCommand(request));
         return ResponseEntity.status(HttpStatus.OK).build();
