@@ -3,7 +3,7 @@ package co.ecommerce.mongo.mapper;
 import co.ecommerce.model.product.Product;
 import co.ecommerce.mongo.entity.ProductMongoEntity;
 
-public class ProductMapper {
+public class ProductMongoMapper {
 
     public static Product toDomain(ProductMongoEntity document) {
         if(document == null) return null;

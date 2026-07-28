@@ -2,7 +2,7 @@ package co.ecommerce.mongo.adapter;
 
 import co.ecommerce.model.product.Product;
 import co.ecommerce.model.product.gateways.ProductRepository;
-import co.ecommerce.mongo.mapper.ProductMapper;
+import co.ecommerce.mongo.mapper.ProductMongoMapper;
 import co.ecommerce.mongo.repository.ProductMongoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -20,22 +20,22 @@ public class ProductMongoAdapter implements ProductRepository {
     @Override
     @Transactional
     public Product save(Product product) {
-        return ProductMapper
+        return ProductMongoMapper
                 .toDomain(
-                        productMongoRepository.save(ProductMapper.toDocument(product)));
+                        productMongoRepository.save(ProductMongoMapper.toDocument(product)));
     }
 
     @Override
     public List<Product> findAll(String name, BigDecimal minPrice, BigDecimal maxPrice) {
         return productMongoRepository.searchProducts(name, minPrice, maxPrice)
                 .stream()
-                .map(ProductMapper::toDomain)
+                .map(ProductMongoMapper::toDomain)
                 .toList();
     }
 
     @Override
     public Product findById(String id) {
-        return ProductMapper
+        return ProductMongoMapper
                 .toDomain(productMongoRepository.findById(id).orElse(null));
     }
 

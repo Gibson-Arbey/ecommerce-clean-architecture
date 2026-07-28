@@ -9,6 +9,7 @@ import co.ecommerce.api.product.request.UpdateProductRequest;
 import co.ecommerce.api.product.response.ProductResponse;
 import co.ecommerce.usecase.product.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +28,13 @@ public class ProductRest {
     private final UpdateProductUseCase updateProductUseCase;
     private final DeleteProductByIdUseCase deleteProductByIdUseCase;
 
+    @Value("${app.maintenance.message: Product Service is under maintenance. Please try again later.}")
+    private String maintenanceCase;
+
     @PostMapping
     public ResponseEntity<ProductResponse> registerProduct(@RequestBody RegisterProductRequest request) {
         return ResponseEntity
-            .status(201)
+            .status(HttpStatus.CREATED)
             .body(ProductResponseMapper
                     .toResponse(registerProductUseCase
                             .execute(CommandProductRequestMapper

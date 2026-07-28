@@ -8,9 +8,11 @@ dependencies {
     implementation project(':model')
     implementation project(':usecase')
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     testImplementation 'com.tngtech.archunit:archunit:1.4.2'
     testImplementation 'tools.jackson.core:jackson-databind'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
 }
 
 tasks.register('explodedJar', Copy) {
