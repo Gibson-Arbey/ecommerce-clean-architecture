@@ -2,6 +2,7 @@ package co.ecommerce.api.config;
 
 import co.ecommerce.model.exception.DomainException;
 import co.ecommerce.model.exception.ErrorTypeEnum;
+import co.ecommerce.model.exception.InfrastructureException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,23 +19,48 @@ public class HandlerAdvice {
             DomainException ex,
             HttpServletRequest request
     ) {
-
-        HttpStatus status = getHttpStatus(ex.getErrorType());
-
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                status,
-                ex.getMessage()
+        return buildProblemDetail(
+                ex.getCode(),
+                ex.getErrorType(),
+                ex.getMessage(),
+                request
         );
+    }
 
-        problemDetail.setTitle(ex.getErrorType().name());
-        problemDetail.setProperty("code", ex.getCode());
+    @ExceptionHandler(InfrastructureException.class)
+    public ProblemDetail handleInfrastructureException(
+            InfrastructureException ex,
+            HttpServletRequest request
+    ) {
+        return buildProblemDetail(
+                ex.getCode(),
+                ex.getErrorType(),
+                ex.getMessage(),
+                request
+        );
+    }
+
+    private ProblemDetail buildProblemDetail(
+            String code,
+            ErrorTypeEnum errorType,
+            String message,
+            HttpServletRequest request
+    ) {
+
+        HttpStatus status = getHttpStatus(errorType);
+
+        ProblemDetail problemDetail =
+                ProblemDetail.forStatusAndDetail(
+                        status,
+                        message
+                );
+
+        problemDetail.setTitle(errorType.name());
+        problemDetail.setProperty("code", code);
         problemDetail.setProperty("path", request.getRequestURI());
-
-        log.error(problemDetail.toString(), ex);
 
         return problemDetail;
     }
-
 
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleGeneric(
