@@ -5,8 +5,8 @@ spring:
     config:
       server:
         git:
-          uri: file:///D:/Cursos/spring-boot/arquitectura-microservicios/ecommerce-clean-architecture/config-data
+          uri: file:///C:/Users/GIBSON/DATOS/cursos/spring-boot/ecommerce-clean-architecture/config-data
           clone-on-start: true
           default-label: main
 server:
-  port: 9000
+  port: 8888

@@ -8,7 +8,6 @@ import co.ecommerce.model.order.gateways.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +15,6 @@ import java.util.List;
 
 @Slf4j
 @Repository
-@RefreshScope
 @RequiredArgsConstructor
 public class OrderJpaAdapter implements OrderRepository {
 

@@ -1,6 +1,7 @@
 package co.ecommerce.consumer.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -11,17 +12,17 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class WebClientConfig {
 
     @Bean
+    @LoadBalanced
     public WebClient.Builder webClientBuilder() {
         return WebClient.builder();
     }
 
     @Bean
     public WebClient inventoryWebClient(
-            WebClient.Builder builder,
-            @Value("${adapter.webclient.inventory-url}") String url
+            WebClient.Builder builder
     ) {
         return builder
-                .baseUrl(url)
+                .baseUrl("http://INVENTORYSERVICE")
                 .defaultHeader(
                         HttpHeaders.CONTENT_TYPE,
                         MediaType.APPLICATION_JSON_VALUE
