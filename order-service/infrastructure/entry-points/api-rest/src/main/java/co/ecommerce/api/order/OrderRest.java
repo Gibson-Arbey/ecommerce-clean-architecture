@@ -5,13 +5,16 @@ import co.ecommerce.api.order.mapper.CommandOrderRequestMapper;
 import co.ecommerce.api.order.mapper.OrderResponseMapper;
 import co.ecommerce.api.order.request.CreateOrderRequest;
 import co.ecommerce.api.order.response.OrderResponse;
+import co.ecommerce.api.util.JwtUtil;
 import co.ecommerce.usecase.order.CreateOrderUseCase;
 import co.ecommerce.usecase.order.DeleteOrderByIdUseCase;
-import co.ecommerce.usecase.order.GetAllOrdersUseCase;
+import co.ecommerce.usecase.order.GetAllOrdersByUserIdUseCase;
 import co.ecommerce.usecase.order.GetOrderByIdUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,26 +25,29 @@ import java.util.List;
 public class OrderRest {
 
     private final CreateOrderUseCase createOrderUseCase;
-    private final GetAllOrdersUseCase getAllOrdersUseCase;
+    private final GetAllOrdersByUserIdUseCase getAllOrdersByUserIdUseCase;
     private final GetOrderByIdUseCase getOrderByIdUseCase;
     private final DeleteOrderByIdUseCase deleteOrderByIdUseCase;
 
     @PostMapping
-    public ResponseEntity<OrderResponse> createOrder(@RequestBody CreateOrderRequest request) {
+    public ResponseEntity<OrderResponse> createOrder(@RequestBody CreateOrderRequest request, @AuthenticationPrincipal Jwt jwt) {
+        String userId = JwtUtil.getUserId(jwt);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(OrderResponseMapper
                         .toOrderResponse(createOrderUseCase
-                                .execute(CommandOrderRequestMapper
+                                .execute(userId, CommandOrderRequestMapper
                                         .toCreateOrderCommand(request))));
     }
 
     @GetMapping
-    public ResponseEntity<List<OrderResponse>> getAllOrders() {
+    public ResponseEntity<List<OrderResponse>> getAllOrders(@AuthenticationPrincipal Jwt jwt) {
+        String userId = JwtUtil.getUserId(jwt);
+        boolean isAdmin = JwtUtil.hasRole(jwt, "ADMIN");
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(OrderResponseMapper
-                        .toOrderResponseList(getAllOrdersUseCase.execute()));
+                        .toOrderResponseList(getAllOrdersByUserIdUseCase.execute(userId, isAdmin)));
     }
 
     @GetMapping("/{id}")

@@ -13,12 +13,13 @@ public class OrderJpaMapper {
         return OrderJpaEntity.builder()
                 .id(order.getId())
                 .orderNumber(order.getOrderNumber())
+                .userId(order.getUserId())
                 .items(toEntityItem(order.getItems()))
                 .build();
     }
 
     public static Order toDomain(OrderJpaEntity entity) {
-        return Order.restore(entity.getId(), entity.getOrderNumber(), toDomainItem(entity.getItems()));
+        return Order.restore(entity.getId(), entity.getOrderNumber(), entity.getUserId(), toDomainItem(entity.getItems()));
     }
 
     public static List<OrderItemJpaEntity> toEntityItem(List<OrderItem> items) {

@@ -27,17 +27,17 @@ public class SecurityConfig {
 
                         .pathMatchers("/eureka/**").permitAll()
 
-                        .pathMatchers(HttpMethod.GET, "/api/v1/product/**").permitAll()
-                        .pathMatchers(HttpMethod.GET, "/api/v1/inventory/**").permitAll()
-                        .pathMatchers("/api/v1/product/**").hasRole(RoleEnum.ADMIN.name())
-                        .pathMatchers("/api/v1/inventory/**").hasRole(RoleEnum.ADMIN.name())
+                        .pathMatchers(HttpMethod.GET, "/api/product/**").permitAll()
+                        .pathMatchers(HttpMethod.GET, "/api/inventory/**").permitAll()
+                        .pathMatchers("/api/product/**").hasRole(RoleEnum.ADMIN.name())
+                        .pathMatchers("/api/inventory/**").hasRole(RoleEnum.ADMIN.name())
 
 
-                        .pathMatchers(HttpMethod.POST, "/api/v1/order").hasRole(RoleEnum.USER.name())
+                        .pathMatchers(HttpMethod.POST, "/api/order").hasRole(RoleEnum.USER.name())
 
-                        .pathMatchers(HttpMethod.GET, "/api/v1/order/**").hasAnyRole(RoleEnum.ADMIN.name(), RoleEnum.USER.name())
-                        .pathMatchers(HttpMethod.DELETE, "/api/v1/order/**").hasRole(RoleEnum.ADMIN.name())
-                        .pathMatchers(HttpMethod.PUT, "/api/v1/order/**").hasRole(RoleEnum.ADMIN.name())
+                        .pathMatchers(HttpMethod.GET, "/api/order/**").hasAnyRole(RoleEnum.ADMIN.name(), RoleEnum.USER.name())
+                        .pathMatchers(HttpMethod.DELETE, "/api/order/**").hasRole(RoleEnum.ADMIN.name())
+                        .pathMatchers(HttpMethod.PUT, "/api/order/**").hasRole(RoleEnum.ADMIN.name())
 
                         .anyExchange().authenticated()
                 )

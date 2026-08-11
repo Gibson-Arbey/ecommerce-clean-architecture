@@ -33,8 +33,8 @@ public class OrderJpaAdapter implements OrderRepository {
     }
 
     @Override
-    public List<Order> findAll() {
-        return orderJpaRepository.findAll()
+    public List<Order> findAllByUserId(String userId) {
+        return orderJpaRepository.findAllByUserId(userId)
                 .stream()
                 .map(OrderJpaMapper::toDomain)
                 .toList();

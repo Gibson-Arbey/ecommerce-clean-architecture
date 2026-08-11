@@ -20,6 +20,8 @@ public class OrderJpaEntity {
 
     private String orderNumber;
 
+    private String userId;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) // orphanRemoval es clave para Updates
     @JoinColumn(name = "order_id") // Crea la FK en la tabla de items
     private List<OrderItemJpaEntity> items;

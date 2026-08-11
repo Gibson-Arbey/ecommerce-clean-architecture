@@ -7,11 +7,11 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class GetAllOrdersUseCase {
+public class GetAllOrdersByUserIdUseCase {
 
     private final OrderRepository orderRepository;
 
-    public List<Order> execute(){
-        return orderRepository.findAll();
+    public List<Order> execute(String userId, boolean isAdmin) {
+        return orderRepository.findAllByUserId(isAdmin ? "" : userId);
     }
 }
