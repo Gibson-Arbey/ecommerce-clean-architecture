@@ -1,0 +1,8 @@
+package co.ecommerce.model.orderevent.gateways;
+
+import co.ecommerce.model.orderevent.OrderPlacedEvent;
+
+public interface OrderEventRepository {
+
+    void publishOrderPlaced(OrderPlacedEvent event);
+}

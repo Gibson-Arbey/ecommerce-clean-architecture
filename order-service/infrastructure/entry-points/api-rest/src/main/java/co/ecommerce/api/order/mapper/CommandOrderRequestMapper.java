@@ -15,6 +15,6 @@ public class CommandOrderRequestMapper {
                         item.quantity()
                 ))
                 .toList();
-        return new CreateOrderCommand(items);
+        return new CreateOrderCommand(items, request.email());
     }
 }

@@ -1,5 +1,15 @@
 spring:
   application:
-    name: InventoryService
+    name: "InventoryService"
   config:
     import: "optional:configserver:http://localhost:8888"
+commons:
+  jms:
+    input-concurrency: 10
+    input-queue: "DEV.QUEUE.2"
+    input-queue-alias: ""
+    reactive: false
+ibm:
+  mq:
+    channel: "DEV.APP.SVRCONN"
+    user: "app"
