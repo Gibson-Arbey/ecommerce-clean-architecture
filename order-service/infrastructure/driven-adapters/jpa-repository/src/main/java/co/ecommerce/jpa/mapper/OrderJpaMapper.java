@@ -6,11 +6,15 @@ import co.ecommerce.model.order.Order;
 import co.ecommerce.model.order.OrderItem;
 import co.ecommerce.model.order.OrderStatus;
 
+import java.util.Collections;
 import java.util.List;
 
 public class OrderJpaMapper {
 
     public static OrderJpaEntity toEntity(Order order) {
+        if(order == null) {
+            return null;
+        }
         return OrderJpaEntity.builder()
                 .id(order.getId())
                 .orderNumber(order.getOrderNumber())
@@ -20,10 +24,16 @@ public class OrderJpaMapper {
     }
 
     public static Order toDomain(OrderJpaEntity entity) {
+        if(entity == null) {
+            return null;
+        }
         return Order.restore(entity.getId(), entity.getOrderNumber(), entity.getUserId(), toDomainItem(entity.getItems()), OrderStatus.valueOf(entity.getStatus()));
     }
 
     public static List<OrderItemJpaEntity> toEntityItem(List<OrderItem> items) {
+        if(items == null) {
+            return Collections.emptyList();
+        }
         return items
                 .stream()
                 .map(item -> OrderItemJpaEntity.builder()
@@ -36,6 +46,9 @@ public class OrderJpaMapper {
     }
 
     public static List<OrderItem> toDomainItem(List<OrderItemJpaEntity> entity) {
+        if(entity == null) {
+            return Collections.emptyList();
+        }
         return entity
                 .stream()
                 .map(item -> OrderItem.restore(

@@ -56,4 +56,15 @@ public class OrderJpaAdapter implements OrderRepository {
     public boolean existsById(Long id) {
         return orderJpaRepository.existsById(id);
     }
+
+    @Override
+    public Order findByOrderNumber(String orderNumber) {
+        return OrderJpaMapper.toDomain(orderJpaRepository.findByOrderNumber(orderNumber));
+    }
+
+    @Override
+    @Transactional
+    public void updateStatusByOrderNumber(String orderNumber, String status) {
+        orderJpaRepository.updateStatusByOrderNumber(orderNumber, status);
+    }
 }

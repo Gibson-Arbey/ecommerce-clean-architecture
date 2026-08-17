@@ -15,4 +15,8 @@ public interface OrderRepository {
     void deleteById(Long id);
 
     boolean existsById(Long id);
+
+    Order findByOrderNumber(String orderNumber);
+
+    void updateStatusByOrderNumber(String orderNumber, String status);
 }
