@@ -18,6 +18,9 @@ plugins {
 	id 'jacoco'
 }
 
+ext {
+    set('springCloudVersion', "2025.1.2")
+}
 sonar {
     def modules = subprojects.projectDir.collect { "${it.toString().replace(project.projectDir.toString() + "/", "")}" }
     properties {

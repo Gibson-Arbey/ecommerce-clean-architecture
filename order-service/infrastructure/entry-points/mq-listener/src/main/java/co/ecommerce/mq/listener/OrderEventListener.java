@@ -1,4 +1,4 @@
-package co.ecommerce.mq.listener.listener;
+package co.ecommerce.mq.listener;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

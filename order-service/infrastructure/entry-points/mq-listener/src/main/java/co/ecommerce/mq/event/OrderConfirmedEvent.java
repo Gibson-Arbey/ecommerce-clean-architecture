@@ -1,4 +1,4 @@
-package co.ecommerce.mq.listener.event;
+package co.ecommerce.mq.event;
 
 public record OrderConfirmedEvent(String orderNumber, String email) {
 }

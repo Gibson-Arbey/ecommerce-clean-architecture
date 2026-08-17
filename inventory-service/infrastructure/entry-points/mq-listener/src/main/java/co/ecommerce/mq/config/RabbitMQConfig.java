@@ -1,4 +1,4 @@
-package co.ecommerce.mq.listener.config;
+package co.ecommerce.mq.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

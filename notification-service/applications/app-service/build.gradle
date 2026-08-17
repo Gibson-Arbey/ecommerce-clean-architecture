@@ -8,6 +8,9 @@ dependencies {
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     testImplementation 'com.tngtech.archunit:archunit:1.4.2'
     testImplementation 'tools.jackson.core:jackson-databind'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
 }
 
 tasks.register('explodedJar', Copy) {
