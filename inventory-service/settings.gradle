@@ -25,3 +25,7 @@ include ':api-rest'
 project(':api-rest').projectDir = file('./infrastructure/entry-points/api-rest')
 include ':mq-listener'
 project(':mq-listener').projectDir = file('./infrastructure/entry-points/mq-listener')
+include ':inventory-configuracion'
+project(':inventory-configuracion').projectDir = file('./infrastructure/driven-adapters/inventory-configuracion')
+include ':mq-sender'
+project(':mq-sender').projectDir = file('./infrastructure/driven-adapters/mq-sender')

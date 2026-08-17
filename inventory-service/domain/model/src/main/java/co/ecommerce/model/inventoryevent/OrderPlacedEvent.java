@@ -1,4 +1,4 @@
-package co.ecommerce.mq.event;
+package co.ecommerce.model.inventoryevent;
 
 import java.util.List;
 

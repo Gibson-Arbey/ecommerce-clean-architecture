@@ -3,6 +3,7 @@ package co.ecommerce.jpa.adapter;
 import co.ecommerce.jpa.mapper.InventoryJpaMapper;
 import co.ecommerce.jpa.repository.InventoryJpaRepository;
 import co.ecommerce.model.inventory.Inventory;
+import co.ecommerce.model.inventory.exception.InsufficientStockException;
 import co.ecommerce.model.inventory.gateways.InventoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -32,7 +33,7 @@ public class InventoryJpaAdapter implements InventoryRepository {
     }
 
     @Override
-    public Inventory findBysku(String sku) {
+    public Inventory findBySku(String sku) {
         return InventoryJpaMapper.toDomain(inventoryJpaRepository.findBysku(sku));
     }
 
@@ -50,5 +51,14 @@ public class InventoryJpaAdapter implements InventoryRepository {
     @Transactional
     public void deleteBySku(String sku) {
         inventoryJpaRepository.deleteBysku(sku);
+    }
+
+    @Override
+    @Transactional
+    public void reduceStock(String sku, Integer quantity) {
+        int updatedRows = inventoryJpaRepository.reduceStock(sku, quantity);
+        if(updatedRows == 0) {
+            throw new InsufficientStockException("Stock insufficient in product " + sku);
+        }
     }
 }

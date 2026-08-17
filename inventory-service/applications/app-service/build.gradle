@@ -1,6 +1,8 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
+	implementation project(':mq-sender')
+	implementation project(':inventory-configuracion')
 	implementation project(':mq-listener')
 	testImplementation 'org.springframework:spring-web'
 	implementation project(':api-rest')

@@ -10,6 +10,6 @@ public class GetInventoryBySkuUseCase {
     private final InventoryRepository inventoryRepository;
 
     public Inventory execute(String sku) {
-        return inventoryRepository.findBysku(sku);
+        return inventoryRepository.findBySku(sku);
     }
 }

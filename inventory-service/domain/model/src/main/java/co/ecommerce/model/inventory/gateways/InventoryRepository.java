@@ -10,11 +10,13 @@ public interface InventoryRepository {
 
     List<Inventory> findAllByFilters(String sku, Integer minQuantity, Integer maxQuantity);
 
-    Inventory findBysku(String sku);
+    Inventory findBySku(String sku);
 
     Inventory findById(Long id);
 
     boolean existsBysku(String sku);
 
     void deleteBySku(String sku);
+
+    void reduceStock(String sku, Integer quantity);
 }

@@ -13,7 +13,7 @@ public class ReduceStockInventoryUseCase {
     private final InventoryRepository inventoryRepository;
 
     public void execute(String sku, ReduceStockInventoryCommand command){
-        Inventory inventory = inventoryRepository.findBysku(sku);
+        Inventory inventory = inventoryRepository.findBySku(sku);
 
         if (inventory == null) {
             throw new InventoryNotFoundException("sku not found");

@@ -31,4 +31,12 @@ public interface InventoryJpaRepository extends JpaRepository<InventoryJpaEntity
         WHERE i.sku = :sku
     """)
     void  deleteBysku(@Param("sku") String sku);
+
+    @Modifying
+    @Query("""
+        UPDATE InventoryJpaEntity i
+        SET i.quantity = i.quantity - :quantity
+        WHERE i.sku = :sku AND i.quantity >= :quantity
+    """)
+    int reduceStock(@Param("sku") String sku, @Param("quantity") Integer quantity);
 }

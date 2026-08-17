@@ -17,7 +17,9 @@ public class Order {
 
     private final List<OrderItem> items;
 
-    private Order(Long id, String orderNumber, String userId, List<OrderItem> items) {
+    private final OrderStatus status;
+
+    private Order(Long id, String orderNumber, String userId, List<OrderItem> items, OrderStatus status) {
         if (orderNumber == null) throw new InvalidFieldException("orderNumber cannot be null");
         if (items == null || items.isEmpty()) throw new InvalidFieldException("items cannot be null or empty");
         if(userId == null || userId.isEmpty()) throw new InvalidFieldException("userId cannot be null or empty");
@@ -25,13 +27,14 @@ public class Order {
         this.orderNumber = orderNumber;
         this.userId = userId;
         this.items = items;
+        this.status = status;
     }
 
     public static Order create(String userId, List<OrderItem> items) {
-        return new Order(null, UUID.randomUUID().toString(), userId, items);
+        return new Order(null, UUID.randomUUID().toString(), userId, items, OrderStatus.PLACED);
     }
 
-    public static Order restore(Long id, String orderNumber, String userId, List<OrderItem> items) {
-        return new Order(id, orderNumber, userId, items);
+    public static Order restore(Long id, String orderNumber, String userId, List<OrderItem> items, OrderStatus status) {
+        return new Order(id, orderNumber, userId, items, status);
     }
 }

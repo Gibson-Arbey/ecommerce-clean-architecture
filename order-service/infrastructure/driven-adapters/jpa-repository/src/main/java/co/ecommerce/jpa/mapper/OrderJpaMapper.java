@@ -4,6 +4,7 @@ import co.ecommerce.jpa.entity.OrderItemJpaEntity;
 import co.ecommerce.jpa.entity.OrderJpaEntity;
 import co.ecommerce.model.order.Order;
 import co.ecommerce.model.order.OrderItem;
+import co.ecommerce.model.order.OrderStatus;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class OrderJpaMapper {
     }
 
     public static Order toDomain(OrderJpaEntity entity) {
-        return Order.restore(entity.getId(), entity.getOrderNumber(), entity.getUserId(), toDomainItem(entity.getItems()));
+        return Order.restore(entity.getId(), entity.getOrderNumber(), entity.getUserId(), toDomainItem(entity.getItems()), OrderStatus.valueOf(entity.getStatus()));
     }
 
     public static List<OrderItemJpaEntity> toEntityItem(List<OrderItem> items) {
