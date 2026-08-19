@@ -7,8 +7,12 @@ import co.ecommerce.model.order.OrderItem;
 import co.ecommerce.model.order.gateways.OrderRepository;
 import co.ecommerce.model.orderevent.OrderPlacedEvent;
 import co.ecommerce.model.orderevent.gateways.OrderEventRepository;
+import co.ecommerce.model.outboxevent.OutboxEvent;
+import co.ecommerce.model.outboxevent.gateways.OutboxEventRepository;
 import co.ecommerce.usecase.order.command.CreateOrderCommand;
 import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 public class CreateOrderUseCase {
@@ -16,6 +20,7 @@ public class CreateOrderUseCase {
     private final OrderRepository orderRepository;
     private final InventoryRepository inventoryRepository;
     private final OrderEventRepository orderEventRepository;
+    private final OutboxEventRepository outboxEventRepository;
 
     public Order execute(String userId, CreateOrderCommand command){
         Order order = Order.create(userId, command.items()
@@ -33,7 +38,11 @@ public class CreateOrderUseCase {
         OrderPlacedEvent event =
                 OrderPlacedEvent.from(savedOrder, command.email());
 
-        orderEventRepository.publishOrderPlaced(event);
+        boolean eventPublished = orderEventRepository.publishOrderPlaced(event);
+
+        outboxEventRepository.saveOrderPlacedEvent(
+                OutboxEvent.create(order.getOrderNumber(),"ORDER_PLACED", event, LocalDateTime.now(), eventPublished)
+        );
 
         return savedOrder;
     }

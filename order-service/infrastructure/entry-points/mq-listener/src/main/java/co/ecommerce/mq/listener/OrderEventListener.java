@@ -4,11 +4,9 @@ import co.ecommerce.model.order.OrderStatus;
 import co.ecommerce.model.orderevent.OrderPlacedEvent;
 import co.ecommerce.usecase.order.UpdateStatusByOrderNumberUseCase;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class OrderEventListener {

@@ -4,5 +4,5 @@ import co.ecommerce.model.orderevent.OrderPlacedEvent;
 
 public interface OrderEventRepository {
 
-    void publishOrderPlaced(OrderPlacedEvent event);
+    boolean publishOrderPlaced(OrderPlacedEvent event);
 }

@@ -36,3 +36,5 @@ include ':mq-listener'
 project(':mq-listener').projectDir = file('./infrastructure/entry-points/mq-listener')
 include ':mq-sender'
 project(':mq-sender').projectDir = file('./infrastructure/driven-adapters/mq-sender')
+include ':scheduler'
+project(':scheduler').projectDir = file('./infrastructure/entry-points/scheduler')
