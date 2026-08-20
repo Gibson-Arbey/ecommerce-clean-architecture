@@ -6,6 +6,7 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,7 +31,7 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding orderConfirmedBinding(Queue orderConfirmedQueue, TopicExchange orderEventsExchange) {
+    public Binding orderConfirmedBinding(@Qualifier("orderConfirmedQueue")Queue orderConfirmedQueue, TopicExchange orderEventsExchange) {
         return BindingBuilder.bind(orderConfirmedQueue).to(orderEventsExchange).with("order.confirmed");
     }
 
@@ -40,7 +41,7 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding orderCancelledBinding(Queue orderCancelledQueue, TopicExchange orderEventsExchange) {
+    public Binding orderCancelledBinding(@Qualifier("orderCancelledQueue")Queue orderCancelledQueue, TopicExchange orderEventsExchange) {
         return BindingBuilder.bind(orderCancelledQueue).to(orderEventsExchange).with("order.cancelled");
     }
 }
